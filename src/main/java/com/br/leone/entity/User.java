@@ -1,6 +1,7 @@
 package com.br.leone.entity;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -20,13 +21,15 @@ public class User {
     @Column("email")
     private String email;
 
+    @NotBlank(message = "Senha é obrigatoria")
     @Column("senha")
     private String senha;
 
+    @Size(min = 10, max = 11, message = "Telefone precisa de 10 a 11 digitos")
     @Column("telefone")
     private String telefone;
 
-
+    @Size(min = 12, max = 12, message = "CPF invalido")
     @Column("cpf")
     private String cpf;
 
