@@ -1,0 +1,92 @@
+package com.br.leone.entity;
+
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+
+@Table(name = "users")
+public class User {
+
+    @Id
+    private Long id;
+
+    @NotBlank(message = "Nome é obrigatorio")
+    @Column("name")
+    private String name;
+
+    @NotBlank(message = "Email é obrigatorio")
+    @Column("email")
+    private String email;
+
+    @Column("senha")
+    private String senha;
+
+    @Column("telefone")
+    private String telefone;
+
+
+    @Column("cpf")
+    private String cpf;
+
+    public User(){}
+
+
+    public User(Long id, String name, String email, String senha, String telefone, String cpf) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.cpf = cpf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+}
