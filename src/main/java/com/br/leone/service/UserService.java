@@ -1,6 +1,8 @@
 package com.br.leone.service;
 
 import com.br.leone.entity.User;
+import com.br.leone.exception.DadosJaCadastradosException;
+import com.br.leone.exception.UsuarioNaoEncontradoException;
 import com.br.leone.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
 
+
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -22,7 +25,7 @@ public class UserService {
 
     public User criar(User user) {
         if(userRepository.existsByEmail(user.getEmail())){
-            throw new IllegalArgumentException("Email já cadastrado");
+            throw new DadosJaCadastradosException();
         }
         user.setSenha(passwordEncoder.encode(user.getSenha()));
         return userRepository.save(user);
@@ -42,7 +45,7 @@ public class UserService {
 
     public User atualizar (Long id, User dadosNovos){
         User userExistente = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(id));
 
         userExistente.setName(dadosNovos.getName());
         userExistente.setTelefone(dadosNovos.getTelefone());
@@ -56,7 +59,7 @@ public class UserService {
 
     public void deletar(Long id){
         if(!userRepository.existsById(id)){
-            throw new IllegalArgumentException("Usuario não encontrado");
+            throw new UsuarioNaoEncontradoException(id);
         }
 
         userRepository.existsById(id);
