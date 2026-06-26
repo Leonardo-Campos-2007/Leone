@@ -1,5 +1,6 @@
 package com.br.leone.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
@@ -22,6 +23,7 @@ public class User {
     private String email;
 
     @NotBlank(message = "Senha é obrigatoria")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column("senha")
     private String senha;
 
