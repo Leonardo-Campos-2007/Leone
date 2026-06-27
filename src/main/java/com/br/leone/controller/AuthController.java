@@ -3,6 +3,7 @@ package com.br.leone.controller;
 import com.br.leone.dto.LoginRequest;
 import com.br.leone.dto.LoginResponse;
 import com.br.leone.entity.User;
+import com.br.leone.security.JwtService;
 import com.br.leone.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -17,24 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final JwtService jwtService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtService jwtService) {
         this.authService = authService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request){
 
         System.out.println(">>> Entrou no AuthController");
 
         User user = authService.autenticar(request);
 
-        LoginResponse response = new LoginResponse(
-                user.getId(),
-                user.getName(),
-                user.getEmail()
-        );
+        String token = jwtService.gerarToken(user);
 
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
