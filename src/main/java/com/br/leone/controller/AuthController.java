@@ -4,6 +4,7 @@ import com.br.leone.dto.LoginRequest;
 import com.br.leone.dto.LoginResponse;
 import com.br.leone.entity.User;
 import com.br.leone.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request){
 
         System.out.println(">>> Entrou no AuthController");
 

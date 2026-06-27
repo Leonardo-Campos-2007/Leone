@@ -62,7 +62,7 @@ public class UserService {
             throw new UsuarioNaoEncontradoException(id);
         }
 
-        userRepository.existsById(id);
+        userRepository.deleteById(id);
     }
 
 }

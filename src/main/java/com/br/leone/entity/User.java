@@ -1,6 +1,7 @@
 package com.br.leone.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
@@ -18,6 +19,7 @@ public class User {
     @Column("name")
     private String name;
 
+    @Email(message = "Email invalido")
     @NotBlank(message = "Email é obrigatorio")
     @Column("email")
     private String email;
@@ -31,7 +33,7 @@ public class User {
     @Column("telefone")
     private String telefone;
 
-    @Size(min = 12, max = 12, message = "CPF invalido")
+    @Size(min = 11, max = 11, message = "CPF deve ter 11 digitos")
     @Column("cpf")
     private String cpf;
 

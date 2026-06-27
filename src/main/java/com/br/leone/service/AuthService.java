@@ -21,7 +21,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("E-mail ou senha inválidos"));
 
         if (!passwordEncoder.matches(request.senha(), user.getSenha())) {
-            throw new RuntimeException("E-mail ou senha invalidos");
+            throw new RuntimeException("E-mail ou senha inválidos");
         }
         return user;
    }
