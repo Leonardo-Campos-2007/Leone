@@ -1,14 +1,31 @@
 package com.br.leone.security;
 
 import com.br.leone.entity.User;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+
+@Service
 public class JwtService {
 
-    public String gerarToken(User user){}
+@Value("${jwt.secret")
+    private String secret;
 
-    public String extrairEmail(String token){}
+@Value("${jwt.expiration")
+    private Long expiration;
 
-    public boolean tokenValido(String token, User user){}
+private SecretKey getSigningKey(){
+    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+}
+
+public String gerarToken(User user){
+    return Jwts.builder()
+            .subject()
+}
 
 
 }
