@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class CategoriaServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaServico> criar(@Valid @RequestBody CategoriaServico categoria, Authentication authentication) {
-        exigirAdmin(authentication);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CategoriaServico> criar(@Valid @RequestBody CategoriaServico categoria) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaServicoService.criar(categoria));
     }
 
