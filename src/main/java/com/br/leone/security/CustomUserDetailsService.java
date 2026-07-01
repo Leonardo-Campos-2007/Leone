@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    public final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,12 +19,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         com.br.leone.entity.User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         return User.builder()
                 .username(user.getEmail())
                 .password(user.getSenha())
-                .roles("USER")
+                .roles(user.getRole().name())
                 .build();
     }
 }

@@ -26,10 +26,13 @@ CREATE TABLE IF NOT EXISTS perfil_prestador (
     );
 
 CREATE TABLE IF NOT EXISTS categoria_servico (
-    id               BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nome             VARCHAR(100) NOT NULL,
-    descricao        TEXT,
-    categoria_pai_id BIGINT,
+    id                    BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome                  VARCHAR(100) NOT NULL,
+    descricao             TEXT,
+    categoria_pai_id      BIGINT,
+    status_aprovacao      VARCHAR(20)  NOT NULL DEFAULT 'APROVADO',
+    criado_por_usuario_id BIGINT,
     CONSTRAINT fk_categoria_pai FOREIGN KEY (categoria_pai_id) REFERENCES categoria_servico(id),
+    CONSTRAINT fk_categoria_criador FOREIGN KEY (criado_por_usuario_id) REFERENCES users(id),
     CONSTRAINT uq_nome_pai UNIQUE (nome, categoria_pai_id)
     );

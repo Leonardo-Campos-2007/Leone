@@ -1,5 +1,6 @@
 package com.br.leone.entity;
 
+import com.br.leone.enums.StatusAprovacao;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -21,13 +22,22 @@ public class CategoriaServico {
     @Column("categoria_pai_id")
     private Long categoriaPaiId;
 
+    @Column("status_aprovacao")
+    private StatusAprovacao statusAprovacao = StatusAprovacao.APROVADO;
+
+    @Column("criado_por_usuario_id")
+    private Long criadoPorUsuarioId;
+
     public CategoriaServico() {}
 
-    public CategoriaServico(Long id, String nome, String descricao, Long categoriaPaiId) {
+    public CategoriaServico(Long id, String nome, String descricao, Long categoriaPaiId,
+                            StatusAprovacao statusAprovacao, Long criadoPorUsuarioId) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.categoriaPaiId = categoriaPaiId;
+        this.statusAprovacao = statusAprovacao;
+        this.criadoPorUsuarioId = criadoPorUsuarioId;
     }
 
     public Long getId() { return id; }
@@ -41,4 +51,10 @@ public class CategoriaServico {
 
     public Long getCategoriaPaiId() { return categoriaPaiId; }
     public void setCategoriaPaiId(Long categoriaPaiId) { this.categoriaPaiId = categoriaPaiId; }
+
+    public StatusAprovacao getStatusAprovacao() { return statusAprovacao; }
+    public void setStatusAprovacao(StatusAprovacao statusAprovacao) { this.statusAprovacao = statusAprovacao; }
+
+    public Long getCriadoPorUsuarioId() { return criadoPorUsuarioId; }
+    public void setCriadoPorUsuarioId(Long criadoPorUsuarioId) { this.criadoPorUsuarioId = criadoPorUsuarioId; }
 }
